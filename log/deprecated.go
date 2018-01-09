@@ -2,7 +2,7 @@ package log
 
 // This file contains MultiWriter logging to a file and stdout,
 // it has now been deprecated in favour of structured logging found in log.go
-// It will be removed in Fragmenta 2.0
+// It will be removed in Freska 2.0
 
 import (
 	"io"

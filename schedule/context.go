@@ -1,7 +1,7 @@
 // Package schedule provides a simple way to schedule functions at a time or interval
 package schedule
 
-// Logger Interface for a simple logger (the stdlib log pkg and the fragmenta log pkg conform)
+// Logger Interface for a simple logger (the stdlib log pkg and the freska log pkg conform)
 type Logger interface {
 	Printf(format string, args ...interface{})
 }
@@ -19,7 +19,7 @@ type ActionContext struct {
 	// The context log passed from router
 	logger Logger
 
-	// The app config usually loaded from fragmenta.json
+	// The app config usually loaded from freska.json
 	config Config
 
 	// Arbitrary user data stored in a map

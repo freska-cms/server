@@ -51,10 +51,10 @@ func New() (*Server, error) {
 		configProduction:  make(map[string]string),
 		configDevelopment: make(map[string]string),
 		configTest:        make(map[string]string),
-		Logger:            log.New(os.Stderr, "fragmenta: ", log.LstdFlags),
+		Logger:            log.New(os.Stderr, "freska: ", log.LstdFlags),
 	}
 
-	// Old style config read - this will be going away in Fragmenta 2.0
+	// Old style config read - this will be going away in Freska 2.0
 	// use server/config instead from the app
 	err := s.readConfig()
 	if err != nil {
