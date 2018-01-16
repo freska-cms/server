@@ -40,7 +40,7 @@ func New() (*Server, error) {
 
 	// Check environment variable to see if we are in production mode
 	prod := false
-	if os.Getenv("FRAG_ENV") == "production" {
+	if os.Getenv("FRESKA_ENV") == "production" {
 		prod = true
 	}
 
