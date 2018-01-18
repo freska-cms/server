@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	// DefaultPath is where our config is normally found for fragmenta apps.
-	DefaultPath = "secrets/fragmenta.json"
+	// DefaultPath is where our config is normally found for freska apps.
+	DefaultPath = "secrets/freska.json"
 )
 
 // Config modes are set when creating a new config

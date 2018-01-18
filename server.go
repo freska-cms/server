@@ -40,7 +40,7 @@ func New() (*Server, error) {
 
 	// Check environment variable to see if we are in production mode
 	prod := false
-	if os.Getenv("FRAG_ENV") == "production" {
+	if os.Getenv("FRESKA_ENV") == "production" {
 		prod = true
 	}
 
@@ -51,10 +51,10 @@ func New() (*Server, error) {
 		configProduction:  make(map[string]string),
 		configDevelopment: make(map[string]string),
 		configTest:        make(map[string]string),
-		Logger:            log.New(os.Stderr, "fragmenta: ", log.LstdFlags),
+		Logger:            log.New(os.Stderr, "freska: ", log.LstdFlags),
 	}
 
-	// Old style config read - this will be going away in Fragmenta 2.0
+	// Old style config read - this will be going away in Freska 2.0
 	// use server/config instead from the app
 	err := s.readConfig()
 	if err != nil {
@@ -157,23 +157,24 @@ func (s *Server) ConfiguredTLSServer(certManager *autocert.Manager) *http.Server
 
 }
 
-// StartRedirectAll starts redirecting all requests on the given port to the given host
-// this should be called before StartTLS if redirecting http on port 80 to https
-func (s *Server) StartRedirectAll(p int, host string) {
+// StartRedirectAll starts redirecting from port given to the given url
+// this should be called before StartTLS if redirecting to https
+func (s *Server) StartRedirectAll(p int, url string) {
 	port := fmt.Sprintf(":%d", p)
 	// Listen and server on port p in a separate goroutine
 	go func() {
-		http.ListenAndServe(port, &redirectHandler{host: host})
+		http.ListenAndServe(port, &redirectHandler{redirect: url})
 	}()
 }
 
 // redirectHandler is useful if serving tls direct (not behind a proxy)
 // and a redirect from port 80 is required.
 type redirectHandler struct {
-	host string
+	redirect string
 }
 
 // ServeHTTP on this handler simply redirects to the main site
 func (m *redirectHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, m.host+r.URL.String(), http.StatusMovedPermanently)
+
+	http.Redirect(w, r, m.redirect, http.StatusMovedPermanently)
 }
