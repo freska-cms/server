@@ -12,11 +12,11 @@ const (
 	// Separator is used to separate key:value pairs
 	Separator = ":"
 	// PrefixDate constant for date prefixes
-	PrefixDate = "2006-01-02 "
+	PrefixDate = "2018-01-02 "
 	// PrefixTime  constants for time prefix
 	PrefixTime = "15:04:05 "
 	// PrefixDateTime  constants for date + time prefix
-	PrefixDateTime = "2006-01-02:15:04:05 "
+	PrefixDateTime = "2018-01-02:15:04:05 "
 )
 
 // NewStdErr returns a new StructuredLogger of type Default which writes to stderr. By default

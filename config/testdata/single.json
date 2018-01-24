@@ -9,7 +9,7 @@
 		"log": "log/development.log",
 		"mail_from": "example@example.com",
 		"mail_secret": "secret",
-		"path": "github.com/freska/freska-app",
+		"path": "github.com/freska-cms/freska-app",
 		"port": "3000",
 		"root_url": "https://localhost:3000",
 		"secret_key": "secret",
