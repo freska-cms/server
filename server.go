@@ -157,23 +157,24 @@ func (s *Server) ConfiguredTLSServer(certManager *autocert.Manager) *http.Server
 
 }
 
-// StartRedirectAll starts redirecting all requests on the given port to the given host
-// this should be called before StartTLS if redirecting http on port 80 to https
-func (s *Server) StartRedirectAll(p int, host string) {
+// StartRedirectAll starts redirecting from port given to the given url
+// this should be called before StartTLS if redirecting to https
+func (s *Server) StartRedirectAll(p int, url string) {
 	port := fmt.Sprintf(":%d", p)
 	// Listen and server on port p in a separate goroutine
 	go func() {
-		http.ListenAndServe(port, &redirectHandler{host: host})
+		http.ListenAndServe(port, &redirectHandler{redirect: url})
 	}()
 }
 
 // redirectHandler is useful if serving tls direct (not behind a proxy)
 // and a redirect from port 80 is required.
 type redirectHandler struct {
-	host string
+	redirect string
 }
 
 // ServeHTTP on this handler simply redirects to the main site
 func (m *redirectHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, m.host+r.URL.String(), http.StatusMovedPermanently)
+
+	http.Redirect(w, r, m.redirect, http.StatusMovedPermanently)
 }
